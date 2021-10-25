@@ -13,6 +13,11 @@ const AuthorSchema = new mongoose.Schema({
         type: String,
         required: true,
         default: 0
+    },
+    ideas: [mongoose.Types.ObjectId],
+    joined_date: {
+        type: Date,
+        deault: Date.now
     }
 });
 

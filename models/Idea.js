@@ -23,6 +23,10 @@ const IdeaSchema = new mongoose.Schema({
         required: true,
         default: 0,
     },
+    posted_time: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 module.exports = Idea = mongoose.model('idea', IdeaSchema);
