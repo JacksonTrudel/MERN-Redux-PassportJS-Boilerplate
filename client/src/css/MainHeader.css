@@ -11,6 +11,10 @@
     height: 5vh;
 }
 
+a {
+    color: #A2D2FF;
+}
+
 /* MainMenuHeaderRow.js */
 .mainmenu-header {
     background-color: #A2D2FF;

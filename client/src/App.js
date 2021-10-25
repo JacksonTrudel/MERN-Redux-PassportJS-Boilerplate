@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div clssName="full-page">
           <div className="main-header">
             <MainHeader currentPage="CurrentPageTest" />
           </div>

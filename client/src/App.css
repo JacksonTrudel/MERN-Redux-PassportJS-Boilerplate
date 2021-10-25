@@ -24,10 +24,34 @@
 }
 
 /* Custom styles */
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: #FEF9EF;
+}
 
 .page-not-found {
-  height: 100%;
-  width: 80vw;
+  width: 80%;
   margin: auto auto;
 }
 
+.action-button {
+	color: #FEF9EF !important;
+	text-transform: uppercase;
+	text-decoration: none;
+	background: #A2D2FF;
+	padding: 20px;
+	border-radius: 5px;
+	display: inline-block;
+	border: none;
+	transition: all 0.4s ease 0s;
+}
+
+.action-button:hover {
+	background: #90AACB;
+	letter-spacing: 1px;
+	-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+	-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+	box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+	transition: all 0.4s ease 0s;
+}

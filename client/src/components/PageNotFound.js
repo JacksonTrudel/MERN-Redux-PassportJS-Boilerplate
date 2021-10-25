@@ -5,9 +5,8 @@ import { Link } from 'react-router-dom';
 const styles = {
     jumbotron: {
         backgroundColor: '#FF865E',
-        color: 'white',
-        borderColor: '#FEF9EF',
-        border: '15px solid',
+        color: '#FEF9EF',
+        borderRadius: '15px',
     },
     menuOption: {
         margin: '0 10px'
@@ -21,7 +20,7 @@ function PageNotFound() {
                 <h1 class="display-4">Page not found!</h1>
                 <p class="lead">The page you are looking for does not exist.</p>
                 <hr class="my-4" />
-                <Link to='/homepage' class="btn btn-primary btn-lg">Go to homepage</Link>
+                <Link to='/homepage' className="action-button">Go to homepage</Link>
             </div>
         </div>);
 }
