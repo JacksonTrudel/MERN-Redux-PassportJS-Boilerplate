@@ -4,6 +4,7 @@ import './App.css';
 
 import PageNotFound from './components/PageNotFound';
 import CreateIdea from './components/CreateIdea';
+import SignInPage from './components/page/SignInPage';
 import MainHeader from './components/header/MainHeader';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
             <MainHeader currentPage="CurrentPageTest" />
           </div>
           <Switch>
+            <Route path='/sign-in' component={SignInPage} />
             <Route path='/create-idea' component={CreateIdea} />
             <Route path='/' component={PageNotFound} />
           </Switch>

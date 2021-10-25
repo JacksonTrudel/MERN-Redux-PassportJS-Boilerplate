@@ -1,0 +1,32 @@
+/* Styles for SignInPage.js */
+
+.signin-card {
+    height: 100%;
+    max-width: 60%;
+    border: 1vh solid #FF865E;
+    border-radius: 1.5vh;
+    margin: 0 auto;
+    background-color: #F9F3F3;
+}
+
+.signin-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2vh auto;
+}
+
+.signin-card-header {
+    display: flex;
+    justify-content: center;
+    font-size: 5vh;
+    margin: 0 auto;
+}
+
+.signin-form-row {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
+    margin: 5% 5% 0; 
+    column-gap: 5%;
+}

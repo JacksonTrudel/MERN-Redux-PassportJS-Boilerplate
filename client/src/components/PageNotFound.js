@@ -20,7 +20,7 @@ function PageNotFound() {
                 <h1 class="display-4">Page not found!</h1>
                 <p class="lead">The page you are looking for does not exist.</p>
                 <hr class="my-4" />
-                <Link to='/homepage' className="action-button">Go to homepage</Link>
+                <Link to='/homepage' className="action-button-large">Go to homepage</Link>
             </div>
         </div>);
 }

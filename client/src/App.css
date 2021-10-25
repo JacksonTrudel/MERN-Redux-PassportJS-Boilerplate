@@ -35,7 +35,7 @@ html, body {
   margin: auto auto;
 }
 
-.action-button {
+.action-button-large {
 	color: #FEF9EF !important;
 	text-transform: uppercase;
 	text-decoration: none;
@@ -47,7 +47,28 @@ html, body {
 	transition: all 0.4s ease 0s;
 }
 
-.action-button:hover {
+.action-button-small {
+	color: #FEF9EF !important;
+	text-transform: uppercase;
+	text-decoration: none;
+	background: #A2D2FF;
+	padding: 8px 16px;
+	border-radius: 5px;
+	display: inline-block;
+	border: none;
+	transition: all 0.4s ease 0s;
+}
+
+.action-button-large:hover {
+	background: #90AACB;
+	letter-spacing: 1px;
+	-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+	-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+	box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+	transition: all 0.4s ease 0s;
+}
+
+.action-button-small:hover {
 	background: #90AACB;
 	letter-spacing: 1px;
 	-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
