@@ -1,0 +1,35 @@
+{
+    "name": "someone-do-it",
+    "version": "1.0.0",
+    "description": "Webapp where people can post niche business ideas.",
+    "main": "index.js",
+    "scripts": {
+        "start": "node server.js",
+        "server": "nodemon server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JacksonTrudel/someone-do-it.git"
+    },
+    "keywords": [
+        "MERN"
+    ],
+    "author": "Jackson Trudel",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/JacksonTrudel/someone-do-it/issues"
+    },
+    "homepage": "https://github.com/JacksonTrudel/someone-do-it#readme",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.19.0",
+        "config": "^3.3.6",
+        "express": "^4.17.1",
+        "mongoose": "^6.0.12",
+        "validation": "0.0.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.14"
+    }
+}
