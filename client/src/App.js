@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
+import PageNotFound from './components/PageNotFound';
 import CreateIdea from './components/CreateIdea';
+import MainHeader from './components/header/MainHeader';
 
 class App extends Component {
   render() {
     return (
       <Router>
         <div>
-          <Route path='/create-idea' component={CreateIdea} />
+          <div className="main-header">
+            <MainHeader currentPage="CurrentPageTest" />
+          </div>
+          <Switch>
+            <Route path='/create-idea' component={CreateIdea} />
+            <Route path='/' component={PageNotFound} />
+          </Switch>
           {/*<Route exact path='/' component={ShowBookList} />
           <Route path='/create-book' component={CreateBook} />
           <Route path='/edit-book/:id' component={UpdateBookInfo} />

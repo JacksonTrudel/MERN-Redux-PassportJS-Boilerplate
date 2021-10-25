@@ -1,0 +1,18 @@
+/* Styles for MainHeader.js */
+.main-header {
+    height: 10vh;
+}
+
+/* Styles for child components */
+
+/* SignInHeaderRow.js */
+.signin-header {
+    background-color: #FEF9EF;
+    height: 5vh;
+}
+
+/* MainMenuHeaderRow.js */
+.mainmenu-header {
+    background-color: #A2D2FF;
+    height: 5vh;
+}
