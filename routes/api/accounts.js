@@ -20,7 +20,17 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-    console.log(req.params);
+    console.log(req.query);
+    User.findOne(req.query)
+        .then((user) => {
+            if (user) {
+                res.status(200).send({ loginToken: `auth_${user.username}` });
+            }
+            else {
+                res.status(200).send({ incorrectLogin: 'Incorrect login' });
+            }
+        })
+        .catch(err => res.status(404).json({ incorrectLogin: 'Incorrect username & password combination' }));
     /*
     User.findById(req.params.id)
         .then(user => res.json(user))

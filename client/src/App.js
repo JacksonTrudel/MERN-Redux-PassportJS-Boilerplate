@@ -18,7 +18,7 @@ function App() {
           <MainHeader currentPage="CurrentPageTest" />
         </div>
         <Switch>
-          <Route path='/create-account' element={<CreateAccountPage />} />
+          <Route path='/create-account' render={() => <CreateAccountPage />} />
           <Route path='/sign-in' component={SignInPage} />
           <Route path='/create-idea' component={CreateIdea} />
           <Route path='/' component={PageNotFound} />

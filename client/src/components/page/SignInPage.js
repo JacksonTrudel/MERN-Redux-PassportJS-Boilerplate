@@ -79,7 +79,7 @@ function SignInPage() {
                     </input>
                 </div>
                 <div className="signin-form-row">
-                    <div className="action-button-small" style={styles['loginButton']} onClick={submit}>Create Account</div>
+                    <div className="action-button-small" style={styles['loginButton']} onClick={submit}>Sign in</div>
                 </div>
             </div >
         </div >);
