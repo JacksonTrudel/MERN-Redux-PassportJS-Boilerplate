@@ -21,7 +21,6 @@ const styles = {
 };
 
 function SignInPage({ loginToken, setLoginToken }) {
-    console.log(`top: ${loginToken}`);
     const [userInfo, setUserInfo] = useState({
         username: '',
         password: '',
@@ -42,13 +41,19 @@ function SignInPage({ loginToken, setLoginToken }) {
 
     function submit(event) {
         event.preventDefault();
+        setShowWrongComboMessage(false);
+
+        // validation
         if (isEmpty(userInfo.username) || isEmpty(userInfo.password)) {
             alert("Enter a username and password");
+            return;
         }
         else if (!Validator.isLength(userInfo.password, { min: 6, max: 30 })) {
-            alert()
+            alert("Passwords are 6-30 characters long");
+            return;
         }
-        setShowWrongComboMessage(false);
+
+        // attempt sign in
         axios.post('http://localhost:8082/accounts/login', userInfo)
             .then(res => {
                 setUserInfo({

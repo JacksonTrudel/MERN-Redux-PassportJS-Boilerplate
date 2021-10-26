@@ -3,15 +3,22 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const validateCreateAccountInput = require('../../validation/create-account-validation');
 
 const User = require('../../models/User');
 
+
 // create new acount
 router.post('/', (req, res) => {
+    // validate input
+    const validationResult = validateCreateAccountInput(req.body);
+    if (!validationResult.isValid) {
+        return res.status(400).json({ bad_input: { username: validationResult.errors.username, password: validationResult.errors.password } });
+    }
+
     User.findOne({ username: req.body.username })
         .then(user => {
             if (user) {
-                console.log("username taken");
                 return res.status(200).json({ failed: "username_taken" });
             }
             else {
@@ -52,7 +59,10 @@ router.get('/:id', (req, res) => {
 
 // login route
 router.post('/login', (req, res) => {
-    console.log(req.query);
+    console.log(req);
+
+    res.status(200).json({ loginToken: "abc" });
+    /*
     User.findOne(req.query)
         .then((user) => {
             if (user) {
@@ -63,6 +73,7 @@ router.post('/login', (req, res) => {
             }
         })
         .catch(err => res.status(400).send(err));
+        */
 });
 
 router.get('/', (req, res) => {
