@@ -1,6 +1,7 @@
+// User model
 const mongoose = require('mongoose');
 
-const AuthorSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true
@@ -21,4 +22,4 @@ const AuthorSchema = new mongoose.Schema({
     }
 });
 
-module.exports = Author = mongoose.model('author', AuthorSchema);
+module.exports = User = mongoose.model('author', UserSchema);

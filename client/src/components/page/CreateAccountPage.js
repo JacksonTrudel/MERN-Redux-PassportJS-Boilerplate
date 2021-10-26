@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { useState } from 'react';
+import axios from 'axios';
 import '../../App.css';
 import '../../css/SignInPage.css';
 
@@ -17,7 +17,7 @@ const styles = {
     }
 };
 
-function SignInPage() {
+function CreateAccountPage() {
     const [userInfo, setUserInfo] = useState({
         username: '',
         password: '',
@@ -37,21 +37,20 @@ function SignInPage() {
 
     function submit(event) {
         event.preventDefault();
-        axios.post('http://localhost:8082/accounts/login', userInfo)
-            .then(res => {
+        axios.post('http://localhost:8082/accounts',
+            {
+                ...userInfo,
+                ideas: []
+            }).then(res => {
                 setUserInfo({
                     username: '',
                     password: ''
                 });
-                if (res.status === 200) {
-                    console.log(res.data);
-                }
-                else {
+                if (res.status !== 200) {
                     alert("could not create account");
                 }
-            })
-            .catch((error) => {
-                alert("could not log in");
+            }).catch((error) => {
+                alert("could not create account");
                 console.log(error);
             });
     }
@@ -86,4 +85,4 @@ function SignInPage() {
 }
 
 
-export default SignInPage;
+export default CreateAccountPage;

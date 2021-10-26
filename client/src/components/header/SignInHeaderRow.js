@@ -9,7 +9,11 @@ import '../../App.css';
 // styles
 const styles = {
     menuOptionContainer: {
-        height: '100%'
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'end',
+        alignItems: 'center',
     },
     menuOption: {
         margin: '0 10px'
@@ -20,20 +24,20 @@ function SignInHeaderRow({ loggedIn }) {
     console.log(`Logged in: ${loggedIn}`);
     return (
         <div className="signin-header">
-            <ul class="nav d-flex justify-content-end align-items-center" style={styles['menuOptionContainer']}>
+            <div style={styles['menuOptionContainer']}>
                 {loggedIn ?
-                    (<li class="nav-item">
+                    (<div>
                         <Link to="/my-account">My Account</Link>
-                    </li>) :
+                    </div>) :
                     (<>
-                        <li class="nav-item m" style={styles['menuOption']}>
+                        <div style={styles['menuOption']}>
                             <Link to="/sign-in">Sign In</Link>
-                        </li>
-                        <li class="nav-item" style={styles['menuOption']}>
+                        </div>
+                        <div style={styles['menuOption']}>
                             <Link to="/create-account">Create Account</Link>
-                        </li>
+                        </div>
                     </>)}
-            </ul>
+            </div>
         </div>
     );
 }
