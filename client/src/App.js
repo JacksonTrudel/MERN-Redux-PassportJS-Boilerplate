@@ -9,7 +9,6 @@ import MainHeader from './components/header/MainHeader';
 import CreateAccountPage from './components/page/CreateAccountPage';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginToken, setLoginToken] = useState();
   return (
     <Router>
@@ -19,7 +18,7 @@ function App() {
         </div>
         <Switch>
           <Route path='/create-account' render={() => <CreateAccountPage />} />
-          <Route path='/sign-in' component={SignInPage} />
+          <Route path='/sign-in' render={() => <SignInPage loginToken={loginToken} setLoginToken={setLoginToken} />} />
           <Route path='/create-idea' component={CreateIdea} />
           <Route path='/' component={PageNotFound} />
         </Switch>

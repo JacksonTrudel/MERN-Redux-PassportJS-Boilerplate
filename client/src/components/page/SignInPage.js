@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+import Validator from 'validator';
 import '../../App.css';
 import '../../css/SignInPage.css';
+import isEmpty from 'is-empty';
 
 // styles
 const styles = {
@@ -17,11 +20,13 @@ const styles = {
     }
 };
 
-function SignInPage() {
+function SignInPage({ loginToken, setLoginToken }) {
+    console.log(`top: ${loginToken}`);
     const [userInfo, setUserInfo] = useState({
         username: '',
         password: '',
     });
+    const [showWrongComboMessage, setShowWrongComboMessage] = useState(false);
 
     function handleChange(event) {
         const { name, value } = event.target;
@@ -37,6 +42,13 @@ function SignInPage() {
 
     function submit(event) {
         event.preventDefault();
+        if (isEmpty(userInfo.username) || isEmpty(userInfo.password)) {
+            alert("Enter a username and password");
+        }
+        else if (!Validator.isLength(userInfo.password, { min: 6, max: 30 })) {
+            alert()
+        }
+        setShowWrongComboMessage(false);
         axios.post('http://localhost:8082/accounts/login', userInfo)
             .then(res => {
                 setUserInfo({
@@ -44,14 +56,19 @@ function SignInPage() {
                     password: ''
                 });
                 if (res.status === 200) {
-                    console.log(res.data);
+                    if (res.data.loginToken) {
+                        setLoginToken(res.data.loginToken);
+                    }
+                    else {
+                        setShowWrongComboMessage(true);
+                    }
                 }
                 else {
-                    alert("could not create account");
+                    alert("Error: could not log into account");
                 }
             })
             .catch((error) => {
-                alert("could not log in");
+                alert("Error: could not log in");
                 console.log(error);
             });
     }
@@ -59,6 +76,9 @@ function SignInPage() {
     return (
         <div className="signin-card">
             <div className="signin-card-content">
+                {showWrongComboMessage && (
+                    <div>WRONG COMBO</div>
+                )}
                 <div className="signin-form-row">
                     <div style={styles['formLabel']}>Username: </div>
                     <input
@@ -85,5 +105,9 @@ function SignInPage() {
         </div >);
 }
 
+SignInPage.propTypes = {
+    loginToken: PropTypes.string,
+    setLoginToken: PropTypes.func,
+};
 
 export default SignInPage;

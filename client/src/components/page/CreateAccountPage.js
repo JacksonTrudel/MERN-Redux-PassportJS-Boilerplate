@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
+import Validator from 'validator';
+import isEmpty from 'is-empty';
 import '../../App.css';
 import '../../css/SignInPage.css';
 
@@ -37,20 +39,35 @@ function CreateAccountPage() {
 
     function submit(event) {
         event.preventDefault();
+        // validation
+        if (isEmpty(userInfo.username) || isEmpty(userInfo.password)) {
+            alert("Enter a username and password");
+            return;
+        }
+        else if (!Validator.isLength(userInfo.password, { min: 6, max: 30 })) {
+            alert("Password must be 6-30 characters long");
+            return;
+        }
         axios.post('http://localhost:8082/accounts',
             {
                 ...userInfo,
                 ideas: []
             }).then(res => {
-                setUserInfo({
-                    username: '',
-                    password: ''
-                });
-                if (res.status !== 200) {
-                    alert("could not create account");
+                // Account successfully created
+                if (res.status === 200) {
+                    if (res.data.failed === "username_taken") {
+                        alert("Username already taken.");
+                    }
+                    else {
+                        setUserInfo({
+                            username: '',
+                            password: ''
+                        });
+                        alert('Account created successfully');
+                    }
                 }
             }).catch((error) => {
-                alert("could not create account");
+                alert("Unexpected error. Could not create account");
                 console.log(error);
             });
     }
