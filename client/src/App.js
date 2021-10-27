@@ -27,9 +27,6 @@ function App() {
       .catch(err => console.log(err))
   }, []);
 
-
-  console.log(login);
-
   return (
     <Router>
       <div>
@@ -38,7 +35,7 @@ function App() {
         </div>
         <Switch>
           <Route path='/create-account' render={() => <CreateAccountPage />} />
-          <Route path='/sign-in' render={() => <SignInPage loginToken={login} setLoginToken={setLogin} />} />
+          <Route path='/sign-in' render={() => <SignInPage login={login} setLogin={setLogin} />} />
           <Route path='/create-idea' component={CreateIdea} />
           <Route path='/' component={PageNotFound} />
         </Switch>

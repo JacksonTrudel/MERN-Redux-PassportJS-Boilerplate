@@ -16,11 +16,38 @@ const styles = {
     formInput: {
         width: '60%',
     },
-    loginButton: {
+    alreadySignedInText: {
+        color: '#000000',
+        margin: '2% auto 0',
+    },
+    logOutButton: {
+        margin: '0 auto 3%'
     }
 };
 
-function SignInPage({ loginToken, setLoginToken }) {
+function logout(event, setLogin) {
+    event.preventDefault();
+    // attempt sign in
+    axios.get('http://localhost:8082/accounts/logout', null, { withCredentials: true })
+        .then(res => {
+            if (res.status === 200) {
+                setLogin({
+                    loggedIn: false,
+                    username: null
+                });
+            }
+            else {
+                alert("Unexpected Error: could not log out");
+            }
+        })
+        .catch((error) => {
+            alert("Unexpected Error: could not log in");
+            console.log(error);
+        });
+}
+
+
+function SignInPage({ login, setLogin }) {
     const [userInfo, setUserInfo] = useState({
         username: '',
         password: '',
@@ -56,21 +83,37 @@ function SignInPage({ loginToken, setLoginToken }) {
         // attempt sign in
         axios.post('http://localhost:8082/accounts/login', userInfo, { withCredentials: true })
             .then(res => {
-                setUserInfo({
-                    username: '',
-                    password: ''
-                });
                 if (res.status === 200) {
-                    console.log("success");
+                    setLogin({
+                        loggedIn: true,
+                        username: userInfo.username
+                    });
                 }
                 else {
                     alert("Error: could not log into account");
                 }
+
+                setUserInfo({
+                    username: '',
+                    password: ''
+                });
             })
             .catch((error) => {
                 alert("Error: could not log in");
                 console.log(error);
             });
+    }
+
+    if (login.loggedIn) {
+        return (
+            <div className="signin-card">
+                <div className="signin-card-content">
+                    <div style={styles['alreadySignedInText']}>Already signed in!</div>
+                </div>
+                <div className="signin-form-row">
+                    <div className="action-button-small" style={styles['logOutButton']} onClick={(event) => logout(event, setLogin)}>Log out</div>
+                </div>
+            </div>);
     }
 
     return (
@@ -99,15 +142,15 @@ function SignInPage({ loginToken, setLoginToken }) {
                     </input>
                 </div>
                 <div className="signin-form-row">
-                    <div className="action-button-small" style={styles['loginButton']} onClick={submit}>Sign in</div>
+                    <div className="action-button-small" onClick={submit}>Sign in</div>
                 </div>
             </div >
         </div >);
 }
 
 SignInPage.propTypes = {
-    loginToken: PropTypes.object,
-    setLoginToken: PropTypes.func,
+    login: PropTypes.object,
+    setLogin: PropTypes.func,
 };
 
 export default SignInPage;
