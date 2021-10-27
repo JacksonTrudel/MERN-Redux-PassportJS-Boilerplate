@@ -1,8 +1,8 @@
 /* Specific styles in MainHeader.css */
 
-//import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import logout from '../../actions/logout';
 import '../../css/MainHeader.css';
 import '../../App.css';
 
@@ -20,15 +20,19 @@ const styles = {
     }
 };
 
-function SignInHeaderRow({ loggedIn }) {
-    console.log(`Logged in: ${loggedIn}`);
+function SignInHeaderRow({ login, setLogin }) {
     return (
         <div className="signin-header">
             <div style={styles['menuOptionContainer']}>
-                {loggedIn ?
-                    (<div>
-                        <Link to="/my-account">My Account</Link>
-                    </div>) :
+                {login.loggedIn ?
+                    (<>
+                        <div>
+                            <Link to="/my-account">My Account</Link>
+                        </div>
+                        <div style={styles['menuOption']}>
+                            <Link to="/homepage" onClick={(event) => logout(event, setLogin)}>Log Out</Link>
+                        </div>
+                    </>) :
                     (<>
                         <div style={styles['menuOption']}>
                             <Link to="/sign-in">Sign In</Link>
@@ -43,7 +47,8 @@ function SignInHeaderRow({ loggedIn }) {
 }
 
 SignInHeaderRow.propTypes = {
-    loggedIn: PropTypes.bool
+    login: PropTypes.object,
+    setLogin: PropTypes.func
 };
 
 export default SignInHeaderRow;

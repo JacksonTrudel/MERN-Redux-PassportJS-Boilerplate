@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { validateCreateAccountInput } from '../../validation/create-account-validation';
 import '../../App.css';
 import '../../css/SignInPage.css';
+import { Redirect } from 'react-router';
 
 // styles
 const styles = {
@@ -18,7 +20,7 @@ const styles = {
     }
 };
 
-function CreateAccountPage() {
+function CreateAccountPage({ login }) {
     const [userInfo, setUserInfo] = useState({
         username: '',
         password: '',
@@ -76,6 +78,10 @@ function CreateAccountPage() {
             });
     }
 
+    if (login.loggedIn) {
+        return (<Redirect to="/homepage" />);
+    }
+
     return (
         <div className="signin-card">
             <div className="signin-card-content">
@@ -105,5 +111,8 @@ function CreateAccountPage() {
         </div >);
 }
 
+CreateAccountPage.propTypes = {
+    login: PropTypes.object,
+};
 
 export default CreateAccountPage;

@@ -7,8 +7,6 @@ import CreateIdea from './components/CreateIdea';
 import SignInPage from './components/page/SignInPage';
 import MainHeader from './components/header/MainHeader';
 import CreateAccountPage from './components/page/CreateAccountPage';
-import axios from 'axios';
-
 
 function App() {
   const [login, setLogin] = useState({
@@ -18,23 +16,23 @@ function App() {
 
   // get user
   useEffect(() => {
-    axios.post('http://localhost:8082/accounts/user', null, { withCredentials: true })
-      .then(response => {
-        if (response.data) {
-          setLogin(response.data);
-        }
-      })
-      .catch(err => console.log(err))
+    const username = localStorage.getItem("username");
+    const loggedIn = localStorage.getItem("loggedIn");
+
+    setLogin({
+      loggedIn,
+      username,
+    });
   }, []);
 
   return (
     <Router>
       <div>
         <div className="main-header">
-          <MainHeader currentPage="CurrentPageTest" />
+          <MainHeader currentPage="CurrentPageTest" login={login} setLogin={setLogin} />
         </div>
         <Switch>
-          <Route path='/create-account' render={() => <CreateAccountPage />} />
+          <Route path='/create-account' render={() => <CreateAccountPage login={login} />} />
           <Route path='/sign-in' render={() => <SignInPage login={login} setLogin={setLogin} />} />
           <Route path='/create-idea' component={CreateIdea} />
           <Route path='/' component={PageNotFound} />

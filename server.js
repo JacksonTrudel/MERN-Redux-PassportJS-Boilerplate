@@ -68,7 +68,7 @@ app.use(session({
     store: new MongoStore({ url: keys.mongoUrl, collection: 'sessions' }),
     cookie: {
         secure: false,
-        maxAge: 1000 * 60 * 2, // 2 minutes
+        maxAge: 1000 * 60 * 60 * 24, // 1 day
     }
 }));
 

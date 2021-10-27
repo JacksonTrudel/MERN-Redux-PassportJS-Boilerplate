@@ -1,10 +1,11 @@
-import axios from 'axios';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import loginAction from '../../actions/login';
 import Validator from 'validator';
 import '../../App.css';
 import '../../css/SignInPage.css';
 import isEmpty from 'is-empty';
+import { Redirect } from 'react-router';
 
 // styles
 const styles = {
@@ -24,28 +25,6 @@ const styles = {
         margin: '0 auto 3%'
     }
 };
-
-function logout(event, setLogin) {
-    event.preventDefault();
-    // attempt sign in
-    axios.get('http://localhost:8082/accounts/logout', null, { withCredentials: true })
-        .then(res => {
-            if (res.status === 200) {
-                setLogin({
-                    loggedIn: false,
-                    username: null
-                });
-            }
-            else {
-                alert("Unexpected Error: could not log out");
-            }
-        })
-        .catch((error) => {
-            alert("Unexpected Error: could not log in");
-            console.log(error);
-        });
-}
-
 
 function SignInPage({ login, setLogin }) {
     const [userInfo, setUserInfo] = useState({
@@ -81,39 +60,12 @@ function SignInPage({ login, setLogin }) {
         }
 
         // attempt sign in
-        axios.post('http://localhost:8082/accounts/login', userInfo, { withCredentials: true })
-            .then(res => {
-                if (res.status === 200) {
-                    setLogin({
-                        loggedIn: true,
-                        username: userInfo.username
-                    });
-                }
-                else {
-                    alert("Error: could not log into account");
-                }
-
-                setUserInfo({
-                    username: '',
-                    password: ''
-                });
-            })
-            .catch((error) => {
-                alert("Error: could not log in");
-                console.log(error);
-            });
+        loginAction(userInfo, setLogin, setUserInfo);
     }
 
+    // redirect on homepage if already signed in
     if (login.loggedIn) {
-        return (
-            <div className="signin-card">
-                <div className="signin-card-content">
-                    <div style={styles['alreadySignedInText']}>Already signed in!</div>
-                </div>
-                <div className="signin-form-row">
-                    <div className="action-button-small" style={styles['logOutButton']} onClick={(event) => logout(event, setLogin)}>Log out</div>
-                </div>
-            </div>);
+        return (<Redirect to="/homepage" />);
     }
 
     return (

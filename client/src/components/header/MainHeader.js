@@ -3,17 +3,17 @@ import '../../css/MainHeader.css';
 import '../../App.css';
 import SignInHeaderRow from './SignInHeaderRow';
 
-function MainHeader({ currentPage }) {
-    console.log(currentPage);
+function MainHeader({ login, setLogin }) {
     return (
         <>
-            <SignInHeaderRow loggedIn={false} />
+            <SignInHeaderRow loggedIn={false} login={login} setLogin={setLogin} />
         </>
     );
 }
 
 MainHeader.propTypes = {
-    currentPage: PropTypes.string
+    login: PropTypes.object,
+    setLogin: PropTypes.func
 };
 
 export default MainHeader;
