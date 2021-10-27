@@ -1,8 +1,9 @@
 // routes/api/accounts.js
 
 const express = require('express');
+const passport = require('passport');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
+const passwordValidation = require('../../validation/password-validation');
 const validateCreateAccountInput = require('../../validation/create-account-validation');
 
 const User = require('../../models/User');
@@ -22,32 +23,45 @@ router.post('/', (req, res) => {
                 return res.status(200).json({ failed: "username_taken" });
             }
             else {
-                const newUser = req.body;
-                // Hash password before saving in database
-                bcrypt.genSalt(10, (err, salt) => {
-                    // catch error
-                    if (err) {
-                        console.log(`bcrypt.genSalt err: ${err}`);
-                        return res.status(400).json({ salt: `Could not generate password salt` });
-                    }
-                    bcrypt.hash(newUser.password, salt, (err, hash) => {
-                        // catch error
-                        if (err) {
-                            console.log(`bcrypt.hash err: ${err}`);
-                            return res.status(400).json({ hash: `Unexpected hash error` });
-                        }
-
-                        // Create user if all is successful
-                        newUser.password = hash;
-                        User.create(newUser)
-                            .then(user => res.json({ success: 'User added successfully' }))
-                            .catch(err => res.status(400).json({ failedCreate: `Failed to create new user` }));
-                    });
-                });
+                const saltHash = passwordValidation.genPassword(req.body.password);
+                const newUser = {
+                    username: req.body.username,
+                    hash: saltHash.hash,
+                    salt: saltHash.salt,
+                    ideas: []
+                }
+                User.create(newUser)
+                    .then(user => res.json({ success: 'User added successfully' }))
+                    .catch(err => res.status(400).json({ failedCreate: `Failed to create new user` }));
             }
         });
 });
 
+// authenticate current user
+router.post('/user', (req, res) => {
+    if (req.isAuthenticated()) {
+        res.status(200).send({ loggedIn: true, username: req.user.username });
+    }
+    else {
+        res.status(200).send({ loggedIn: false, username: null });
+    }
+});
+
+// login
+router.post('/login', passport.authenticate('local', { failureRedirect: '/login-failure' }), function (req, res) {
+    console.log(req.user);
+    console.log("Success");
+    res.status(200).send('You\'ve logged in successfully');
+});
+
+
+router.get('/login-failure', (req, res, next) => {
+    const user = req;
+    console.log(req.user);
+    console.log("failure");
+    res.send('You\'ve failed to login');
+});
+// -----
 
 // Read
 router.get('/:id', (req, res) => {
@@ -58,7 +72,8 @@ router.get('/:id', (req, res) => {
 
 
 // login route
-router.post('/login', (req, res) => {
+/*
+router.post('/user', (req, res) => {
     console.log(req);
 
     res.status(200).json({ loginToken: "abc" });
@@ -73,8 +88,8 @@ router.post('/login', (req, res) => {
             }
         })
         .catch(err => res.status(400).send(err));
-        */
-});
+        
+});*/
 
 router.get('/', (req, res) => {
     User.find()

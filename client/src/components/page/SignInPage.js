@@ -54,19 +54,14 @@ function SignInPage({ loginToken, setLoginToken }) {
         }
 
         // attempt sign in
-        axios.post('http://localhost:8082/accounts/login', userInfo)
+        axios.post('http://localhost:8082/accounts/login', userInfo, { withCredentials: true })
             .then(res => {
                 setUserInfo({
                     username: '',
                     password: ''
                 });
                 if (res.status === 200) {
-                    if (res.data.loginToken) {
-                        setLoginToken(res.data.loginToken);
-                    }
-                    else {
-                        setShowWrongComboMessage(true);
-                    }
+                    console.log("success");
                 }
                 else {
                     alert("Error: could not log into account");
@@ -111,7 +106,7 @@ function SignInPage({ loginToken, setLoginToken }) {
 }
 
 SignInPage.propTypes = {
-    loginToken: PropTypes.string,
+    loginToken: PropTypes.object,
     setLoginToken: PropTypes.func,
 };
 

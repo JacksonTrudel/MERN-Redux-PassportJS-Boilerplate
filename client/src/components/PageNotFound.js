@@ -16,10 +16,10 @@ const styles = {
 function PageNotFound() {
     return (
         <div className="page-not-found">
-            <div class="jumbotron" style={styles['jumbotron']}>
-                <h1 class="display-4">Page not found!</h1>
-                <p class="lead">The page you are looking for does not exist.</p>
-                <hr class="my-4" />
+            <div className="jumbotron" style={styles['jumbotron']}>
+                <h1 className="display-4">Page not found!</h1>
+                <p className="lead">The page you are looking for does not exist.</p>
+                <hr className="my-4" />
                 <Link to='/homepage' className="action-button-large">Go to homepage</Link>
             </div>
         </div>);

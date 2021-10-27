@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const config = require('config');
-const db = `mongodb+srv://server1:${process.env.MONGO_PASSWORD}@cluster0.zf4b0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const keys = require('./keys');
+const db = keys.mongoUrl;
 
-const connectDB = async function () {
+const connectDB = async function (app) {
     try {
         await mongoose.connect(
             db,

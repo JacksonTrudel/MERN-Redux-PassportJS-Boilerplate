@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
@@ -7,9 +7,29 @@ import CreateIdea from './components/CreateIdea';
 import SignInPage from './components/page/SignInPage';
 import MainHeader from './components/header/MainHeader';
 import CreateAccountPage from './components/page/CreateAccountPage';
+import axios from 'axios';
+
 
 function App() {
-  const [loginToken, setLoginToken] = useState();
+  const [login, setLogin] = useState({
+    loggedIn: false,
+    username: null
+  });
+
+  // get user
+  useEffect(() => {
+    axios.post('http://localhost:8082/accounts/user', null, { withCredentials: true })
+      .then(response => {
+        if (response.data) {
+          setLogin(response.data);
+        }
+      })
+      .catch(err => console.log(err))
+  }, []);
+
+
+  console.log(login);
+
   return (
     <Router>
       <div>
@@ -18,7 +38,7 @@ function App() {
         </div>
         <Switch>
           <Route path='/create-account' render={() => <CreateAccountPage />} />
-          <Route path='/sign-in' render={() => <SignInPage loginToken={loginToken} setLoginToken={setLoginToken} />} />
+          <Route path='/sign-in' render={() => <SignInPage loginToken={login} setLoginToken={setLogin} />} />
           <Route path='/create-idea' component={CreateIdea} />
           <Route path='/' component={PageNotFound} />
         </Switch>
