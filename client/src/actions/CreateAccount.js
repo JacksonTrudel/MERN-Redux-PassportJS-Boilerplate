@@ -15,11 +15,8 @@ export default function createAccount(userInfo, setUserInfo, setLogin) {
     }
 
     // try to create new account        
-    axios.post('http://localhost:8082/accounts',
-        {
-            ...userInfo,
-            ideas: []
-        }).then(res => {
+    axios.post('http://localhost:8082/accounts', userInfo)
+        .then(res => {
             // Account successfully created
             if (res.status === 200) {
                 if (res.data.failed === "username_taken") {

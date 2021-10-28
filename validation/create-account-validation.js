@@ -1,4 +1,4 @@
-// backend crete-account validation
+// backend create-account validation
 
 const Validator = require("validator");
 const isEmpty = require("is-empty");

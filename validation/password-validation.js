@@ -1,3 +1,5 @@
+// Validates the password on login attempts
+
 const crypto = require('crypto');
 
 module.exports = {

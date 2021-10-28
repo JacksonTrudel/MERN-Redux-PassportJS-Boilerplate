@@ -37,7 +37,7 @@ router.post('/', (req, res) => {
         });
 });
 
-// authenticate current user
+// authenticate "logged in" user
 router.post('/user', (req, res) => {
     if (req.isAuthenticated()) {
         res.status(200).send({ loggedIn: true, username: req.user.username });
@@ -71,49 +71,35 @@ router.get('/logout', (req, res) => {
 // -----
 
 // Read
+
+/*   GET A USER BY ID
+
 router.get('/:id', (req, res) => {
     User.findById(req.params.id)
         .then(user => res.json(user))
         .catch(err => res.status(404).json({ nouserfound: 'No user found' }));
 });
 
+*/
 
-// login route
-/*
-router.post('/user', (req, res) => {
-    console.log(req);
-
-    res.status(200).json({ loginToken: "abc" });
-    /*
-    User.findOne(req.query)
-        .then((user) => {
-            if (user) {
-                res.status(200).send({ loginToken: `auth_${user.username}` });
-            }
-            else {
-                res.status(200).send({ incorrectLogin: 'Incorrect login' });
-            }
-        })
-        .catch(err => res.status(400).send(err));
-        
-});*/
+/* GET ALL USERS
 
 router.get('/', (req, res) => {
     User.find()
         .then(users => res.json(users))
         .catch(err => res.status(400).json({ nousersfound: 'No users found' }));
 });
+*/
 
-// Update
+/* THIS ROUTE WILL DELETE ALL ACCOUNTS
 
-// Delete
-
-// delete all acounts
 router.delete('/delete-all-someone-do-it', (req, res) => {
     User.deleteMany({}, () => console.log("done deleting!"))
         .then(users => res.status(200).json(users))
         .catch(err => res.status(400).send(err));
 
 });
+
+*/
 
 module.exports = router;

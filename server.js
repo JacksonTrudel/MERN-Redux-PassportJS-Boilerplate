@@ -10,7 +10,6 @@ var LocalStrategy = require('passport-local').Strategy;
 const passwordValidation = require('./validation/password-validation');
 const User = require('./models/User');
 const connectDB = require('./config/db');
-const ideas = require('./routes/api/ideas');
 const accounts = require('./routes/api/accounts');
 const cors = require('cors');
 
@@ -79,7 +78,6 @@ const PORT = process.env.PORT || 8082;
 
 
 // set up routes
-app.use('/ideas', ideas);
 app.use('/accounts', accounts);
 
 app.get('/', (req, res) => res.send('Hello world!'));
