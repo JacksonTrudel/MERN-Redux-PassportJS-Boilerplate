@@ -14,8 +14,10 @@ export default function login(userInfo, setLogin, setUserInfo) {
                     password: ''
                 });
                 setLogin(user);
-                localStorage.setItem('username', user.username);
-                localStorage.setItem('loggedIn', user.loggedIn);
+
+                // store cookie to retrieve login status 
+                // -> not used to auth. users on protected routes
+                localStorage.setItem('user', JSON.stringify(user));
             }
             else {
                 setUserInfo({

@@ -7,6 +7,7 @@ import CreateIdea from './components/CreateIdea';
 import SignInPage from './components/page/SignInPage';
 import MainHeader from './components/header/MainHeader';
 import CreateAccountPage from './components/page/CreateAccountPage';
+import HomePage from './components/page/HomePage';
 
 function App() {
   const [login, setLogin] = useState({
@@ -16,31 +17,23 @@ function App() {
 
   // get user
   useEffect(() => {
-    const username = localStorage.getItem("username");
-    const loggedIn = localStorage.getItem("loggedIn");
-
-    setLogin({
-      loggedIn,
-      username,
-    });
+    const user = JSON.parse(localStorage.getItem('user'));
+    setLogin(user ?? { loggedIn: false, username: null });
   }, []);
 
   return (
     <Router>
       <div>
         <div className="main-header">
-          <MainHeader currentPage="CurrentPageTest" login={login} setLogin={setLogin} />
+          <MainHeader login={login} setLogin={setLogin} />
         </div>
         <Switch>
-          <Route path='/create-account' render={() => <CreateAccountPage login={login} />} />
+          <Route path='/create-account' render={() => <CreateAccountPage login={login} setLogin={setLogin} />} />
           <Route path='/sign-in' render={() => <SignInPage login={login} setLogin={setLogin} />} />
           <Route path='/create-idea' component={CreateIdea} />
+          <Route exact path='/homepage' render={() => <HomePage login={login} />} />
           <Route path='/' component={PageNotFound} />
         </Switch>
-        {/*<Route exact path='/' component={ShowBookList} />
-          <Route path='/create-book' component={CreateBook} />
-          <Route path='/edit-book/:id' component={UpdateBookInfo} />
-    <Route path='/show-book/:id' component={ShowBookDetails} />*/}
       </div>
     </Router>
   );

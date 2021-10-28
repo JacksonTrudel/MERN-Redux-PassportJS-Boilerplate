@@ -2,7 +2,7 @@
 
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import logout from '../../actions/logout';
+import logout from '../../actions/Logout';
 import '../../css/MainHeader.css';
 import '../../App.css';
 

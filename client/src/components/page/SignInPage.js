@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import loginAction from '../../actions/login';
+import loginAction from '../../actions/Login';
 import Validator from 'validator';
 import '../../App.css';
 import '../../css/SignInPage.css';

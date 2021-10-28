@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
-import { validateCreateAccountInput } from '../../validation/create-account-validation';
+import createAccount from '../../actions/CreateAccount';
 import '../../App.css';
 import '../../css/SignInPage.css';
 import { Redirect } from 'react-router';
@@ -20,7 +19,7 @@ const styles = {
     }
 };
 
-function CreateAccountPage({ login }) {
+function CreateAccountPage({ login, setLogin }) {
     const [userInfo, setUserInfo] = useState({
         username: '',
         password: '',
@@ -41,41 +40,7 @@ function CreateAccountPage({ login }) {
     function submit(event) {
         event.preventDefault();
         // validation
-        const validationResult = validateCreateAccountInput(userInfo);
-        if (!validationResult.isValid) {
-            if (validationResult.errors.username) {
-                alert(validationResult.errors.username);
-                return;
-            }
-            else if (validationResult.errors.password) {
-                alert(validationResult.errors.password);
-                return;
-            }
-        }
-
-        // try to create new account        
-        axios.post('http://localhost:8082/accounts',
-            {
-                ...userInfo,
-                ideas: []
-            }).then(res => {
-                // Account successfully created
-                if (res.status === 200) {
-                    if (res.data.failed === "username_taken") {
-                        alert("Username already taken.");
-                    }
-                    else {
-                        setUserInfo({
-                            username: '',
-                            password: ''
-                        });
-                        alert('Account created successfully');
-                    }
-                }
-            }).catch((error) => {
-                alert("Unexpected error. Could not create account");
-                console.log(error);
-            });
+        createAccount(userInfo, setUserInfo, setLogin);
     }
 
     if (login.loggedIn) {
@@ -113,6 +78,7 @@ function CreateAccountPage({ login }) {
 
 CreateAccountPage.propTypes = {
     login: PropTypes.object,
+    setLogin: PropTypes.func
 };
 
 export default CreateAccountPage;
