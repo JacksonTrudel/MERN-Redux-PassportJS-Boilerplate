@@ -5,7 +5,7 @@ import rootReducer from './RootReducer';
 
 const persistConfig = {
     key: 'root',
-    whitelist: [],
+    //whitelist: [],
     storage
 };
 

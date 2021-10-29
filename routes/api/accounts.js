@@ -79,10 +79,6 @@ router.post('/logout', (req, res) => {
     else {
         res.status(200).send({ error: true, message: "User is not authenticated" });
     }
-
-    //req.logout();
-
-
 });
 // -----
 

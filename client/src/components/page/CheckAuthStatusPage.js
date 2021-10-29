@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import checkAuthenticationStatus from '../../actions/CheckAuthenticationStatus';
 import '../../App.css';
 
-function CheckAuthStatus() {
+function CheckAuthStatusPage() {
     const [user, setUser] = useState({ loggedIn: false, username: '' });
     const login = useSelector((state) => state.user);
 
@@ -17,4 +17,4 @@ function CheckAuthStatus() {
 }
 
 
-export default CheckAuthStatus;
+export default CheckAuthStatusPage;
