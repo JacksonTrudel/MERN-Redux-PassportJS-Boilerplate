@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
         default: 0
     },
-    ideas: [mongoose.Types.ObjectId],
+    //ideas: [mongoose.Types.ObjectId],
     joined_date: {
         type: Date,
         deault: Date.now

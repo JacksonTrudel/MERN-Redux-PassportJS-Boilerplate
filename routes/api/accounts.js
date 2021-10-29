@@ -27,8 +27,7 @@ router.post('/', (req, res) => {
                 const newUser = {
                     username: req.body.username,
                     hash: saltHash.hash,
-                    salt: saltHash.salt,
-                    ideas: []
+                    salt: saltHash.salt
                 }
                 User.create(newUser)
                     .then(user => res.json({ success: 'User added successfully' }))
