@@ -27,10 +27,6 @@ export default function createAccount(userInfo, setUserInfo, setLogin) {
                         loggedIn: true,
                         username: userInfo.username
                     });
-                    setUserInfo({
-                        username: '',
-                        password: ''
-                    });
                     alert('Account created successfully');
                 }
             }

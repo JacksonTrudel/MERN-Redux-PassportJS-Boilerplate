@@ -33,7 +33,7 @@ function App() {
           <MainHeader login={login} setLogin={setLogin} />
         </div>
         <Switch>
-          <Route path='/create-account' render={() => <CreateAccountPage login={login} setLogin={setLogin} />} />
+          <Route path='/create-account' render={() => <CreateAccountPage login={login} />} />
           <Route path='/sign-in' render={() => <SignInPage login={login} setLogin={setLogin} />} />
           <Route path='/create-idea' component={CreateIdea} />
           <Route path='/homepage' render={() => <HomePage login={login} />} />

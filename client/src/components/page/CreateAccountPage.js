@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import createAccount from '../../actions/CreateAccount';
 import '../../App.css';
 import '../../css/SignInPage.css';
 import { Redirect } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLogin } from '../../redux/actions/LoginActions';
 
 // styles
 const styles = {
@@ -19,11 +20,12 @@ const styles = {
     }
 };
 
-function CreateAccountPage({ login, setLogin }) {
+function CreateAccountPage() {
     const [userInfo, setUserInfo] = useState({
         username: '',
         password: '',
     });
+    const user = useSelector((state) => state.user);
 
     function handleChange(event) {
         const { name, value } = event.target;
@@ -37,13 +39,14 @@ function CreateAccountPage({ login, setLogin }) {
         });
     }
 
+    const dispatch = useDispatch();
     function submit(event) {
         event.preventDefault();
         // validation
-        createAccount(userInfo, setUserInfo, setLogin);
+        createAccount(userInfo, setUserInfo, (userInfo) => dispatch(setLogin(userInfo)));
     }
 
-    if (login.loggedIn) {
+    if (user.loggedIn) {
         return (<Redirect to="/homepage" />);
     }
 
@@ -75,10 +78,5 @@ function CreateAccountPage({ login, setLogin }) {
             </div >
         </div >);
 }
-
-CreateAccountPage.propTypes = {
-    login: PropTypes.object,
-    setLogin: PropTypes.func
-};
 
 export default CreateAccountPage;
