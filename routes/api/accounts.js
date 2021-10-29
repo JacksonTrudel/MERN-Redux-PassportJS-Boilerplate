@@ -47,17 +47,17 @@ router.post('/user', (req, res) => {
 });
 
 // login
-router.post('/login', passport.authenticate('local', { failureRedirect: '/login-failure' }), function (req, res) {
+router.post('/login', passport.authenticate('local', { failureRedirect: '/accounts/login-failure' }), function (req, res) {
     console.log('User logged in:');
     console.log(req.user);
-    res.status(200).send('You\'ve logged in successfully');
+    res.status(200).send({ loggedIn: true, username: req.user.username });
 });
 
 router.get('/login-failure', (req, res) => {
     const user = req;
     console.log(req.user);
     console.log("failure");
-    res.send('You\'ve failed to login');
+    res.status(200).send({ loggedIn: false, username: '' });
 });
 // -----
 

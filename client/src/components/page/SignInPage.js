@@ -63,7 +63,7 @@ function SignInPage() {
         }
 
         // attempt sign in
-        loginAction(userInfo, setUserInfo, (ui) => dispatch(setLogin(ui)));
+        const result = loginAction(userInfo, setShowWrongComboMessage, (ui) => dispatch(setLogin(ui)));
     }
 
     // redirect on homepage if already signed in
@@ -74,9 +74,6 @@ function SignInPage() {
     return (
         <div className="signin-card">
             <div className="signin-card-content">
-                {showWrongComboMessage && (
-                    <div>WRONG COMBO</div>
-                )}
                 <div className="signin-form-row">
                     <div style={styles['formLabel']}>Username: </div>
                     <input
@@ -96,6 +93,13 @@ function SignInPage() {
                         name="password">
                     </input>
                 </div>
+                {showWrongComboMessage && (
+                    <div className="signin-form-row">
+                        <div className="alert alert-warning" role="alert">
+                            Incorrect username or password
+                        </div>
+                    </div>
+                )}
                 <div className="signin-form-row">
                     <div className="action-button-small" onClick={submit}>Sign in</div>
                 </div>
