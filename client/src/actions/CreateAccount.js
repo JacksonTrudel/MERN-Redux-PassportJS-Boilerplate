@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { validateCreateAccountInput } from '../validation/create-account-validation';
+import login from './Login';
 
-export default function createAccount(userInfo, setUserInfo, setLogin) {
+export default function createAccount(userInfo, setLogin) {
     const validationResult = validateCreateAccountInput(userInfo);
     if (!validationResult.isValid) {
         if (validationResult.errors.username) {
@@ -23,10 +24,17 @@ export default function createAccount(userInfo, setUserInfo, setLogin) {
                     alert("Username already taken.");
                 }
                 else {
-                    setLogin({
+                    const user = {
                         loggedIn: true,
                         username: userInfo.username
-                    });
+                    };
+
+                    // setLogin dispatches redux store setLogin
+                    login(userInfo, () => { }, setLogin);
+
+                    // store cookie to retrieve login status 
+                    // -> not used to auth. users on protected routes
+                    localStorage.setItem('user', JSON.stringify(user));
                     alert('Account created successfully');
                 }
             }

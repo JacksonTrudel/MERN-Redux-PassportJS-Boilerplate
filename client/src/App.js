@@ -10,6 +10,7 @@ import MainHeader from './components/header/MainHeader';
 import CreateAccountPage from './components/page/CreateAccountPage';
 import HomePage from './components/page/HomePage';
 import { setLogin as setLogin_Redux } from './redux/actions/LoginActions';
+import CheckAuthStatus from './components/page/CheckAuthStatus';
 
 function App() {
   const [login, setLogin] = useState({
@@ -39,6 +40,7 @@ function App() {
           <Route path='/homepage' render={() => <HomePage login={login} />} />
           <Route exact path='/' render={() => <HomePage login={login} />} />
           {/* Page not found route -> catches everything not matching route above */}
+          <Route exact path='/check-auth-status' render={() => <CheckAuthStatus />} />
           <Route path='/' component={PageNotFound} />
         </Switch>
       </div>

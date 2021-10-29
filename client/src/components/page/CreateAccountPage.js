@@ -43,7 +43,7 @@ function CreateAccountPage() {
     function submit(event) {
         event.preventDefault();
         // validation
-        createAccount(userInfo, setUserInfo, (userInfo) => dispatch(setLogin(userInfo)));
+        createAccount(userInfo, (userInfo) => dispatch(setLogin(userInfo)));
     }
 
     if (user.loggedIn) {

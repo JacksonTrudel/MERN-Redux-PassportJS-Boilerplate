@@ -38,11 +38,12 @@ router.post('/', (req, res) => {
 
 // authenticate "logged in" user
 router.post('/user', (req, res) => {
+    console.log("req" + JSON.stringify(req.session));
     if (req.isAuthenticated()) {
-        res.status(200).send({ loggedIn: true, username: req.user.username });
+        res.status(200).send({ user: { loggedIn: true, username: req.user.username } });
     }
     else {
-        res.status(200).send({ loggedIn: false, username: null });
+        res.status(200).send({ user: { loggedIn: false, username: '' } });
     }
 });
 
@@ -63,9 +64,25 @@ router.get('/login-failure', (req, res) => {
 
 
 // login
-router.get('/logout', (req, res) => {
-    req.logout();
-    res.status(200).send({ loggedIn: false, username: null });
+router.post('/logout', (req, res) => {
+    if (req.isAuthenticated()) {
+        req.session.destroy(function (err) {
+            if (err) {
+                res.status(200).send({ error: true, message: err });
+            }
+            else {
+
+                res.status(200).send({ error: false, message: "Successfully logged out" });
+            }
+        });
+    }
+    else {
+        res.status(200).send({ error: true, message: "User is not authenticated" });
+    }
+
+    //req.logout();
+
+
 });
 // -----
 
