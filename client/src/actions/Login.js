@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default function login(userInfo, setLogin, setUserInfo) {
+export default function login(userInfo, setUserInfo, setLogin) {
     // attempt sign in
     axios.post('http://localhost:8082/accounts/login', userInfo, { withCredentials: true })
         .then(res => {
@@ -14,6 +14,7 @@ export default function login(userInfo, setLogin, setUserInfo) {
                     password: ''
                 });
                 setLogin(user);
+                window.location.reload(false);
 
                 // store cookie to retrieve login status 
                 // -> not used to auth. users on protected routes

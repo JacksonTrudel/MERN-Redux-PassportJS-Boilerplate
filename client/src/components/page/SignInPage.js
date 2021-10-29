@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import loginAction from '../../actions/Login';
 import Validator from 'validator';
 import '../../App.css';
 import '../../css/SignInPage.css';
 import isEmpty from 'is-empty';
 import { Redirect } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
+import { setLogin } from './../../redux/actions/LoginActions';
 
 // styles
 const styles = {
@@ -26,12 +27,14 @@ const styles = {
     }
 };
 
-function SignInPage({ login, setLogin }) {
+function SignInPage() {
     const [userInfo, setUserInfo] = useState({
         username: '',
         password: '',
     });
     const [showWrongComboMessage, setShowWrongComboMessage] = useState(false);
+    const user = useSelector((state) => state.user);
+    const dispatch = useDispatch();
 
     function handleChange(event) {
         const { name, value } = event.target;
@@ -60,11 +63,11 @@ function SignInPage({ login, setLogin }) {
         }
 
         // attempt sign in
-        loginAction(userInfo, setLogin, setUserInfo);
+        loginAction(userInfo, setUserInfo, (ui) => dispatch(setLogin(ui)));
     }
 
     // redirect on homepage if already signed in
-    if (login.loggedIn) {
+    if (user.loggedIn) {
         return (<Redirect to="/homepage" />);
     }
 
@@ -99,10 +102,5 @@ function SignInPage({ login, setLogin }) {
             </div >
         </div >);
 }
-
-SignInPage.propTypes = {
-    login: PropTypes.object,
-    setLogin: PropTypes.func,
-};
 
 export default SignInPage;

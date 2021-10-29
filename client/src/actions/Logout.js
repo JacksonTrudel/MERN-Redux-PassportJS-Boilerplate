@@ -10,6 +10,7 @@ export default function logout(event, setLogin) {
                     loggedIn: false,
                     username: null
                 });
+                window.location.reload(false);
                 localStorage.clear();
             }
             else {
