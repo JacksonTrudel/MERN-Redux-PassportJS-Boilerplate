@@ -17,7 +17,7 @@ export default function logout(event, setLogin) {
             }
         })
         .catch((error) => {
-            alert("Unexpected Error: could not log in");
+            alert("Unexpected Error: could not log out");
             console.log(error);
         });
 };
