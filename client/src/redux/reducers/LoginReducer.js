@@ -6,18 +6,19 @@ const initialState = {
 };
 
 const LoginReducer = (state = initialState, action) => {
-    switch (action.types) {
+    console.log('asd: ' + JSON.stringify(action));
+
+    switch (action.type) {
         case GET_LOGIN:
             return {
                 ...state
             };
         case SET_LOGIN:
             return {
-                //...state.user,
                 ...action.user
             };
         default:
-            return state;
+            return { ...state };
     }
 };
 
