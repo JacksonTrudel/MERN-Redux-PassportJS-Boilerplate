@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import checkAuthenticationStatus from '../../actions/CheckAuthenticationStatus';
+import checkAuthenticationStatus from '../../user_actions/CheckAuthenticationStatus';
 import '../../App.css';
 
 function CheckAuthStatusPage() {

@@ -39,8 +39,8 @@ function App() {
           <Route path='/create-idea' component={CreateIdea} />
           <Route path='/homepage' render={() => <HomePage login={login} />} />
           <Route exact path='/' render={() => <HomePage login={login} />} />
-          {/* Page not found route -> catches everything not matching route above */}
           <Route exact path='/check-auth-status' render={() => <CheckAuthStatusPage />} />
+          {/* Page not found route -> catches everything not matching route above */}
           <Route path='/' component={PageNotFound} />
         </Switch>
       </div>

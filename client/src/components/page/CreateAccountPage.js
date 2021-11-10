@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import createAccount from '../../actions/CreateAccount';
+import createAccount from '../../user_actions/CreateAccount';
 import '../../App.css';
 import '../../css/SignInPage.css';
 import { Redirect } from 'react-router';
