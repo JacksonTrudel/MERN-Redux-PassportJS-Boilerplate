@@ -63,7 +63,27 @@ function SignInPage() {
         }
 
         // attempt sign in
-        const result = loginAction(userInfo, setShowWrongComboMessage, (ui) => dispatch(setLogin(ui)));
+        const result = loginAction(userInfo, (res) => {
+            if (res.status === 200) {
+                if (res.data.loggedIn) {
+                    const user = {
+                        loggedIn: true,
+                        username: userInfo.username
+                    };
+                    dispatch(setLogin(user));
+                    window.location.reload(false);
+
+                    // store cookie to retrieve login status 
+                    // -> not used to auth. users on protected routes
+                    localStorage.setItem('user', JSON.stringify(user));
+                }
+                else {
+                    setShowWrongComboMessage(true);
+                }
+            }
+        });
+
+        console.log(result);
     }
 
     // redirect on homepage if already signed in

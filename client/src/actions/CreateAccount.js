@@ -30,11 +30,19 @@ export default function createAccount(userInfo, setLogin) {
                     };
 
                     // setLogin dispatches redux store setLogin
-                    login(userInfo, () => { }, setLogin);
+                    login(user, (res) => {
+                        if (res.status === 200) {
+                            if (res.data.loggedIn) {
+                                setLogin(user);
+                                window.location.reload(false);
 
-                    // store cookie to retrieve login status 
-                    // -> not used to auth. users on protected routes
-                    localStorage.setItem('user', JSON.stringify(user));
+                                // store cookie to retrieve login status 
+                                // -> not used to auth. users on protected routes
+                                localStorage.setItem('user', JSON.stringify(user));
+                            }
+                        }
+                    });
+
                     alert('Account created successfully');
                 }
             }
