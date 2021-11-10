@@ -14,16 +14,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    idea_count: {
-        type: String,
-        required: true,
-        default: 0
-    },
-    //ideas: [mongoose.Types.ObjectId],
     joined_date: {
         type: Date,
         deault: Date.now
     }
 });
 
-module.exports = User = mongoose.model('author', UserSchema);
+module.exports = User = mongoose.model('user', UserSchema);

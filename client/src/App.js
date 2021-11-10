@@ -4,7 +4,6 @@ import './App.css';
 import { useDispatch } from 'react-redux';
 
 import PageNotFound from './components/PageNotFound';
-import CreateIdea from './components/CreateIdea';
 import SignInPage from './components/page/SignInPage';
 import MainHeader from './components/header/MainHeader';
 import CreateAccountPage from './components/page/CreateAccountPage';
@@ -36,7 +35,6 @@ function App() {
         <Switch>
           <Route path='/create-account' render={() => <CreateAccountPage />} />
           <Route path='/sign-in' render={() => <SignInPage />} />
-          <Route path='/create-idea' component={CreateIdea} />
           <Route path='/homepage' render={() => <HomePage login={login} />} />
           <Route exact path='/' render={() => <HomePage login={login} />} />
           <Route exact path='/check-auth-status' render={() => <CheckAuthStatusPage />} />
